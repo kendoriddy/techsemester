@@ -1,0 +1,11 @@
+.error {
+  position: absolute;
+  color: red;
+  font-size: 0.6rem;
+}
+.label {
+  color: #211445;
+  font-size: 14px;
+  font-weight: 700;
+}
+
