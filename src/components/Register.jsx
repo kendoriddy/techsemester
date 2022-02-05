@@ -1,58 +1,127 @@
 import React from "react";
-// import "../css/Register.css";
-// import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Formik, Form } from "formik";
-import { TextField } from "./TextField";
-import styles from "../css/Login.modules.css";
-import { registerSchema } from "../validator/Schema";
-import * as yup from "yup";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import lottery from "../assets/lottery.JPG";
+import "../css/Register.css";
 
 const Register = () => {
-  // Render Prop
   return (
-    <div>
-      <h1>Any place in your app!</h1>
-      <Formik
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          phoneNumber: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-        }}
-        validationSchema={registerSchema}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            //   alert(JSON.stringify(values, null, 2));
-            console.log(values);
-            setSubmitting(false);
-          }, 400);
-        }}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <TextField label="First Name" name="first-name" type="text" />
-            <TextField label="Last Name" name="last-name" type="text" />
-            <TextField label="Phone Number" name="number" type="number" />
-            <TextField label="Email" name="email" type="email" />
-            <TextField label="Password" name="password" type="password" />
-            <TextField label="Confirm Password" name="confirm-password" type="password" />
-            <p>
-              <input type="checkbox" name="receive-email" id="receive-email" />
-              Yes, I want to receive Lottery Display emails
-            </p>
-            <p>
-              <input type="checkbox" name="terms" id="terms" />I agree to all terms, Privacy Policy
-              and Fees
-            </p>
-            <button type="submit" disabled={isSubmitting}>
-              Submit
-            </button>
-          </Form>
-        )}
-      </Formik>
+    <div className="overall">
+      <div>
+        <img src={lottery} alt="placeholder" style={{ height: "100vh" }} />
+      </div>
+      <div className="form-container">
+        
+        <div className="form-header">
+          <p>Register</p>
+          <h5>Manage all your lottery efficiently</h5>
+          <p>Let's get you all set up so you can verify your personal account and begin setting up your profile.</p>
+        </div>
+
+        <Formik
+          initialValues={{ firstName: "", lastName: "", phoneNumber: "", email: "", password: "", confirmPassword: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+              errors.email = "Invalid email address";
+            }
+            return errors;
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              setSubmitting(false);
+            }, 400);
+          }}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <div className="register-form">
+                <div>
+                  <label>First Name</label> <br />
+                  <Field
+                    type="text"
+                    name="firstName"
+                    className="form-field"
+                    required
+                  />
+                  <ErrorMessage name="email" component="div" />
+                </div>
+                <div>
+                  <label>Last Name</label> <br />
+                  <Field
+                    type="text"
+                    name="lastName"
+                    className="form-field"
+                    required
+                  />
+                  <ErrorMessage name="email" component="div" />
+                </div>
+                <div>
+                  <label>Phone Number</label> <br />
+                  <Field
+                    type="number"
+                    name="phone"
+                    className="form-field"
+                    required
+                  />
+                  <ErrorMessage name="email" component="div" />
+                </div>
+                <div>
+                  <label>Email</label> <br />
+                  <Field
+                    type="email"
+                    name="email"
+                    className="form-field"
+                    required
+                  />
+                  <ErrorMessage name="email" component="div" />
+                </div>
+                <div>
+                  <label>Password</label> <br />
+                  <Field
+                    type="password"
+                    name="password"
+                    className="form-field"
+                    required
+                  />
+                  <ErrorMessage name="password" component="div" />
+                </div>
+                <div>
+                  <label>Confirm Password</label> <br />
+                  <Field
+                    type="password"
+                    name="password"
+                    className="form-field"
+                    required
+                  />
+                  <ErrorMessage name="password" component="div" />
+                </div>
+              </div>
+              <div className="check">
+              <input type="checkbox" name="remember" id="remember" required />
+              <p>Yes I want to receive lottery display emails</p>
+              </div>
+              <br />
+              <div className="check">
+              <input type="checkbox" name="terms" id="terms" required />
+              <p>I agree to all the terms, privacy policy and Fees</p>
+              </div>
+              <br />
+              <br />
+              <button type="submit" disabled={isSubmitting}>
+                Login
+              </button>
+            </Form>
+          )}
+        </Formik>
+        <p>
+          Already have an account? <a href="/">Login</a>
+        </p>
+      </div>
     </div>
   );
 };
+
 export default Register;

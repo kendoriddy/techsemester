@@ -8,7 +8,7 @@ export const registerSchema = yup.object().shape({
     .required("This field is required")
     .min(6, "This field must be 6 characters or more")
     .max(20, "This field must be 20 characters or less"),
-  phoneNumber: yup
+  phone: yup
     .string()
     .required("This field is Required")
     .matches(
@@ -24,7 +24,7 @@ export const registerSchema = yup.object().shape({
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\\^&*])(?=.{8,})/,
       "Must Contain 8 Characters, One Uppercase, One Lowercase, One Number and One Special Case Character"
     ),
-  confirmPassword: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
+  passwordConfirmation: yup.string().oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
 export const loginSchema = yup.object({
